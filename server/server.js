@@ -3,7 +3,7 @@ const express = require('express');                         //Importa o módulo 
 const cors = require('cors');                               //Para gerir conflitos de requisições
 const fs = require('fs');
 
-const pkg = require('./package.json');
+const pkg = require('./../package.json');
 
 const app = express();                                      //Instancia a função do express na constante app
 
