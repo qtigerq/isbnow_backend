@@ -1,5 +1,5 @@
 const express = require('express');                         //Importa o módulo Express
-const chalk = require('chalk');
+//const chalk = require('chalk');
 const cors = require('cors');                               //Para gerir conflitos de requisições
 const fs = require('fs');
 
@@ -45,7 +45,7 @@ app.use(function (error, req, res, next) {                    //Tratamento de er
 });
 
 console.log(
-  chalk.yellow( '%s booted in %dms - %s://%s:%s' ),
+  ( '%s booted in %dms - %s://%s:%s' ),
   pkg.name,
   Date.now() - start,
   protocol,
