@@ -15,6 +15,34 @@ router.get('/books', async function(req, res, next){                        //Le
 
 });
 
+router.get('/books/:id', async function(req, res, next){                        //Leitura de um livro pelo ID
+
+    try {
+        if (!isNaN(req.params.id)){
+            const book = await booksService.getBook(req.params.id);
+            res.json(book);
+        } else {
+            const book = await booksService.getBookByString(req.params.id);
+            res.json(book);
+        }
+        
+    } catch (event) {
+        next(event);                                                            //chama o próximo middleware que é o tratamento de erro
+    }
+
+});
+
+router.get('/books/:title', async function(req, res, next){                   //Leitura de um livro por string
+
+    try {
+        const book = await booksService.getBookByString(req.params.title);
+        res.json(book);
+    } catch (event) {
+        next(event);                                                            //chama o próximo middleware que é o tratamento de erro
+    }
+
+});
+
 router.post('/books', async function (req, res, next){                      //Gravar um livro
 
     try {

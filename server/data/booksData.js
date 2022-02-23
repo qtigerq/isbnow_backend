@@ -8,6 +8,10 @@ exports.getBook = function(id){                                         //Buscar
     return database.oneOrNone('select * from bookstore.books where id = $1', [id]);
 };
 
+exports.getBookByString = function(string){                             //Buscar um livro pelo título.
+   return database.manyOrNone(`select * from bookstore.books where title like '%${string}%' or authors like '%${string}%'`);
+};
+
 exports.getBookByIsbn = function(isbn){                                 //Buscar um livro pelo ISBN (usado para salvar novos livros).
     return database.oneOrNone('select * from bookstore.books where isbn = $1', [isbn]);
 };

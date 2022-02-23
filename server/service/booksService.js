@@ -10,6 +10,12 @@ exports.getBook = async function(id){                               //Buscar um 
     return book;                                                        //Senão, retorna os dados do livro cadastrado no banco de dados
 };
 
+exports.getBookByString = async function(string){                   //Buscar um livro por uma string
+    const book = await booksData.getBookByString(string);               //Faz a busca do livro pela string
+    if (book.length == 0) throw new Error('No books found');                  //Se não existir, retorna dizendo que não foi encontrado
+    return book;                                                        //Senão, retorna os dados do livro cadastrado no banco de dados
+};
+
 exports.saveBook = async function(book){                            //Salvar um livro
     const existingBook = await booksData.getBookByIsbn(book.isbn);      //Faz uma busca para verificar se o ISBN já está cadastrado no banco
     if (existingBook) throw new Error('ISBN already exists');           //Se existir, devolve erro dizendo que o ISBN já existe

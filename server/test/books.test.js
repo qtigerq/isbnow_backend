@@ -35,6 +35,20 @@ test('Should get books', async function(){                                      
     await booksService.deleteBook(book3.id);
 });
 
+test('Should get a book by string', async function(){                                      //GET BY STRING
+
+    const book = await createRandomBook();                                                          //Cria um livro aleatorio no banco de dados
+    
+    const response = await request(`http://localhost:3001/books/${book.title}`, 'get', );           //Manda a requisição para buscar o livro pelo titulo
+
+    const foundBook = response.data;
+
+    expect(foundBook[0].title).toBe(book.title);
+
+    await booksService.deleteBook(book.id);
+
+});
+
 test('Should save a book', async function(){                                                    //POST
 
     const responseBefore = await booksService.getBooks();
