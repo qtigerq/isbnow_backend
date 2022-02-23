@@ -1,7 +1,8 @@
 const express = require('express');                         //Importa o módulo Express
 const cors = require('cors');                               //Para gerir conflitos de requisições
 const app = express();                                      //Instancia a função do express na constante app
-const port = 3001;
+
+const port = process.env.PORT || 3001;
 
 //middlewares
 app.use(express.json());                                    //Converte as requisiçõs res.body para json.
@@ -28,5 +29,5 @@ app.use(function(error, req, res, next){                    //Tratamento de erro
 });
 
 app.listen(port, () => {                                    //Abre o servidor na porta 3001
-    console.log(`Servidor disponível em http://localhost:${port}`)
+    console.info(`Servidor disponível em http://localhost:${port}`)
   })
