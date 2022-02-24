@@ -11,6 +11,8 @@ const host = process.env.HOST || 'localhost';
 app.use(express.json());                                    //Converte as requisiçõs res.body para json.
 app.use(cors());                                            //Gerente de conflitos de requisições
 
+const path = require('path');
+app.use('/.well-known/pki-validation', express.static(path.join(__dirname, '.well-known/pki-validation')))
 app.use('/', require('./route/booksRoute'));                //Delega para postRoute o tratamento das requisições que chegarem em '/'
 
 app.use(function (error, req, res, next) {                    //Tratamento de erros (error handler)
