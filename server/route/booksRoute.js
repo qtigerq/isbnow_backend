@@ -1,22 +1,17 @@
-const express = require('express');                                         //Importa o módulo express
-const router = express.Router();                                            //Cria um roteador na variavel router
-const booksService = require('../service/booksService');                    //Importa a camada de Serviços
+const express = require('express');
+const router = express.Router();
+const booksService = require('../service/booksService');
 
-
-//CRUD BASICO
-router.get('/books', async function(req, res, next){                        //Leitura (vários livros)
-
+router.get('/books', async function(req, res, next){
     try {
         const books = await booksService.getBooks();
         res.json(books);
     } catch (event) {
-        next(event);                                                            //chama o próximo middleware que é o tratamento de erro
+        next(event);
     }
-
 });
 
-router.get('/books/:id', async function(req, res, next){                        //Leitura de um livro pelo ID
-
+router.get('/books/:id', async function(req, res, next){
     try {
         if (!isNaN(req.params.id)){
             const book = await booksService.getBook(req.params.id);
@@ -25,57 +20,47 @@ router.get('/books/:id', async function(req, res, next){                        
             const book = await booksService.getBookByString(req.params.id);
             res.json(book);
         }
-        
     } catch (event) {
-        next(event);                                                            //chama o próximo middleware que é o tratamento de erro
+        next(event);
     }
-
 });
 
-router.get('/books/:title', async function(req, res, next){                   //Leitura de um livro por string
-
+router.get('/books/:title', async function(req, res, next){
     try {
         const book = await booksService.getBookByString(req.params.title);
         res.json(book);
     } catch (event) {
-        next(event);                                                            //chama o próximo middleware que é o tratamento de erro
+        next(event);
     }
-
 });
 
-router.post('/books', async function (req, res, next){                      //Gravar um livro
-
+router.post('/books', async function (req, res, next){
     try {
-        const book = req.body;                                                  //Pega o livro que chega na requisição
-        const newBook = await booksService.saveBook(book);                      //Envia a requisição para a camada de serviço salvar o livro no banco de dados
-        res.status(201).json(newBook);                                          //Devolve o newBook e o status 201 (CREATED)
+        const book = req.body;
+        const newBook = await booksService.saveBook(book);
+        res.status(201).json(newBook);
     } catch (event) {
-        next(event);                                                            //chama o próximo middleware que é o tratamento de erro
+        next(event);
     }
-
 })
 
-router.delete('/books/:id', async function (req, res, next){                //Excluir um livro
-
+router.delete('/books/:id', async function (req, res, next){
     try {
-        await booksService.deleteBook(req.params.id);                           //Chama o deleteBook usando o parametro ID que vem na requisicao.
+        await booksService.deleteBook(req.params.id);
         res.end();
     } catch (event) {
-        next(event);                                                            //chama o próximo middleware que é o tratamento de erro
+        next(event);
     }
-
 });
 
-router.put('/books/:id', async function (req, res, next){                   //Atualizar um livro
-
+router.put('/books/:id', async function (req, res, next){
     try {
-        const book = req.body;                                                  //Pega o livro que chega na requisição
-        const updatedBook = await booksService.updateBook(req.params.id, book); //Envia a requisição para a camada de serviço atualizar o livro no banco de dados
-        res.status(201).json(updatedBook);                                      //Devolve o updatedBook e o status 201 (VERIFICAR O STATUS)
+        const book = req.body;
+        const updatedBook = await booksService.updateBook(req.params.id, book);
+        res.status(201).json(updatedBook);
     } catch(event) {
-        next(event);                                                            //chama o próximo middleware que é o tratamento de erro
+        next(event);
     }
-
 })
 
-module.exports = router;                                                    //Retorna o roteador a partir deste módulo
+module.exports = router;
